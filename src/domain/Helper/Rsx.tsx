@@ -11,7 +11,7 @@ import {
   throwError,
 } from 'rxjs';
 
-import { catchError, delay, flatMap } from 'rxjs/operators';
+import { catchError, delay, flatMap, map, tap } from 'rxjs/operators';
 
 // export interface IObservable<+T> : Observable<T>;
 
@@ -20,6 +20,8 @@ export const Rxs = Object.freeze({
   catchError$: catchError,
   delay$: delay,
   flatMap$: flatMap,
+  map$: map,
+  tap$: tap,
 
   empty$: EMPTY,
   of$: of,

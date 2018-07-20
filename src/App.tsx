@@ -1,8 +1,8 @@
-import * as React from "react";
-import styled from "styled-components";
-import "./App.css";
+import * as React from 'react';
+import styled from 'styled-components';
+import './App.css';
 
-import { Home } from "./containers/Home/Home";
+import { Home } from './containers/Home/Home';
 
 const Header = styled.header`
   background-color: black;
@@ -15,7 +15,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <Header>NVENTIVE</Header>
+        <Header>Title</Header>
         <Home />
       </div>
     );

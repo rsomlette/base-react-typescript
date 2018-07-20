@@ -1,10 +1,10 @@
-import * as _ from "lodash";
-import * as React from "react";
-import { AddItem } from "../AddItem/AddItem";
+import * as _ from 'lodash';
+import * as React from 'react';
+import { AddItem } from '../AddItem/AddItem';
 
-import styled from "styled-components";
-import { Attribution } from "../../Components/Attribution";
-import { ProjectItem } from "../../Components/ProjectItem";
+import styled from 'styled-components';
+import { Attribution } from '../../frontend/web/Components/Attribution';
+import { ProjectItem } from '../../frontend/web/Components/ProjectItem';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -35,10 +35,10 @@ interface IState {
 
 export class Home extends React.Component<{}, IState> {
   public state: IState = {
-    currentEmployee: "",
-    currentProject: "",
-    employees: ["robin"],
-    projects: []
+    currentEmployee: '',
+    currentProject: '',
+    employees: ['robin'],
+    projects: [],
   };
 
   public onSubmit = (event: any) => {
@@ -46,9 +46,9 @@ export class Home extends React.Component<{}, IState> {
   };
 
   public addProject = () => {
-    this.setState(prevState => ({
-      currentProject: "",
-      projects: [...prevState.projects, prevState.currentProject]
+    this.setState((prevState) => ({
+      currentProject: '',
+      projects: [...prevState.projects, prevState.currentProject],
     }));
   };
 
@@ -68,13 +68,7 @@ export class Home extends React.Component<{}, IState> {
     ));
 
   public render() {
-    const {
-      projects,
-      employees,
-      currentProject,
-      selectedEmployee,
-      selectedProject
-    } = this.state;
+    const { projects, employees, currentProject, selectedEmployee, selectedProject } = this.state;
     return (
       <ContentWrapper>
         <ProjectsListContainer>

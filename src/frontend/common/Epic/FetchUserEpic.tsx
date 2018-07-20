@@ -1,20 +1,22 @@
 import { ActionsObservable, combineEpics, Epic } from 'redux-observable';
 
-import { IFetchClientResponse, userClient } from '../Common/Clients/Helper/FetchUserClient';
-import { Rxs } from '../Helper/Rsx';
+import { IAuthentication } from '../../../domain/Model/User/Authentication';
+
+import { userAdapter } from '../../../client/Adapter/UserAdapter';
+import { Rxs } from '../../../Domain/Helper/Rsx';
 import { FetchUserActions, FetchUserTypes } from '../Redux/FetchUser';
 
 const fetchUser: Epic<any> = (action$: ActionsObservable<any>) =>
   action$.ofType(FetchUserTypes.FETCH).pipe(
     Rxs.flatMap$((action) =>
-      userClient.fetch$(action.email, action.password).pipe(
+      userAdapter.fetch$(action.email, action.password).pipe(
         Rxs.flatMap$(onSuccess$),
         Rxs.catchError$(onError$),
       ),
     ),
   );
 
-function onSuccess$(data: IFetchClientResponse) {
+function onSuccess$(data: IAuthentication) {
   return Rxs.of$(FetchUserActions.fetchSuccess);
 }
 

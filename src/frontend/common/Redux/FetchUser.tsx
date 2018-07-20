@@ -1,4 +1,4 @@
-import { IFetchClientResponse } from '../Common/Clients/Helper/FetchUserClient';
+import { IAuthentication } from '../../../domain/Model/User/Authentication';
 
 export enum FetchUserTypes {
   FETCH = 'fetch',
@@ -9,7 +9,7 @@ export enum FetchUserTypes {
 export const FetchUserActions = {
   fetch: () => ({ type: FetchUserTypes.FETCH }),
   fetchFailure: (error: Error) => ({ error, type: FetchUserTypes.FETCH_FAILURE }),
-  fetchSuccess: (payload: IFetchClientResponse) => ({
+  fetchSuccess: (payload: IAuthentication) => ({
     payload,
     type: FetchUserTypes.FETCH_SUCCESS,
   }),
