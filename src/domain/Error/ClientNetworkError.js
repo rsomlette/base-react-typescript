@@ -1,12 +1,14 @@
-/**
- * Represents an `ApiSauce` `CONNECTION_ERROR` or `NETWORK_ERROR` problem.
- */
-import { ClientError } from '@domain/Error/ClientError';
+// import { ClientError } from './ClientError';
 
-export class ClientNetworkError extends ClientError {
-  constructor() {
-    super('A network error occurred while performing client request');
+// /**
+//  * Represents an `ApiSauce` `CONNECTION_ERROR` or `NETWORK_ERROR` problem.
+//  */
+// // import { ClientError } from '@domain/Error/ClientError';
 
-    this.type = 'ClientNetworkError';
-  }
-}
+// export class ClientNetworkError extends ClientError {
+//   constructor() {
+//     super('A network error occurred while performing client request');
+
+//     this.type = 'ClientNetworkError';
+//   }
+// }

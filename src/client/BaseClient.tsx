@@ -1,22 +1,22 @@
 import {
   ApiResponse,
   ApisauceInstance,
-  CLIENT_ERROR,
-  CONNECTION_ERROR,
+  // CLIENT_ERROR,
+  // CONNECTION_ERROR,
   create,
-  NETWORK_ERROR,
-  SERVER_ERROR,
-  TIMEOUT_ERROR,
+  // NETWORK_ERROR,
+  // SERVER_ERROR,
+  // TIMEOUT_ERROR,
 } from 'apisauce';
 
 import { Observable } from 'rxjs';
-import {
-  ClientError,
-  ClientNetworkError,
-  ClientRequestError,
-  ClientServerError,
-  ClientTimeoutError,
-} from '../domain/Error';
+// import {
+//   ClientError,
+//   ClientNetworkError,
+//   ClientRequestError,
+//   ClientServerError,
+//   ClientTimeoutError,
+// } from '../Domain/Error';
 import { Rxs } from '../Domain/Helper/Rsx';
 import { asObject } from './Helper/Objects';
 
@@ -32,10 +32,11 @@ export const DEFAULT_JSON_API_HEADERS = {
   'Content-Type': 'application/json',
 };
 
+/* tslint:disable:ban-types */
 export class BaseClient {
   public api: ApisauceInstance;
 
-  constructor(baseUrl: string, headers: object) {
+  constructor(baseUrl: string, headers: Object) {
     this.api = create({ baseURL: baseUrl, headers });
   }
 
@@ -43,19 +44,20 @@ export class BaseClient {
     this.api.addMonitor(monitor);
   }
 
-  public del$(url: string,
+  public del$(
+    url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
   ): Observable<ApiResponse<any>> {
     return Rxs.from$(this.api.delete(url, data, axiosConfig));
   }
 
-  public get$(
+  public get$<T>(
     url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
-  ): Observable<ApiResponse<any>> {
-    return Rxs.from$(this.api.get(url, data, axiosConfig));
+  ): Observable<ApiResponse<T>> {
+    return Rxs.from$(this.api.get<T>(url, data, axiosConfig));
   }
 
   public post$(
@@ -63,7 +65,7 @@ export class BaseClient {
     data?: any | undefined,
     axiosConfig?: any | undefined,
   ): Observable<ApiResponse<any>> {
-    return Rxs.from$(this.api.post(url, data, axiosConfig)));
+    return Rxs.from$(this.api.post(url, data, axiosConfig));
   }
 
   public put$(
@@ -82,7 +84,7 @@ export class BaseClient {
     url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
-  ): Observable<object> {
+  ): Observable<Object> {
     return this.del$(url, data, axiosConfig).pipe(Rxs.map$(this.responseToObject));
   }
 
@@ -94,7 +96,7 @@ export class BaseClient {
     url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
-  ): Observable<object> {
+  ): Observable<Object> {
     return this.post$(url, data, axiosConfig).pipe(Rxs.map$(this.responseToObject));
   }
 
@@ -102,12 +104,12 @@ export class BaseClient {
    * Perform an HTTP `GET` and transforms response as an `Object` and
    * throw when server error or body is not an `Object`.
    */
-  public fetch$(
+  public fetch$<T>(
     url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
-  ): Observable<object> {
-    return this.get$(url, data, axiosConfig).pipe(Rxs.map$(this.responseToObject));
+  ): Observable<T> {
+    return this.get$<T>(url, data, axiosConfig).pipe(Rxs.map$(this.responseToObject));
   }
 
   /**
@@ -118,7 +120,7 @@ export class BaseClient {
     url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
-  ): Observable<object> {
+  ): Observable<Object> {
     return this.get$(url, data, axiosConfig).pipe(Rxs.flatMap$(this.responseToList$));
   }
 
@@ -130,7 +132,7 @@ export class BaseClient {
     url: string,
     data?: any | undefined,
     axiosConfig?: any | undefined,
-  ): Observable<object> {
+  ): Observable<Object> {
     return this.put$(url, data, axiosConfig).pipe(Rxs.map$(this.responseToObject));
   }
 
@@ -166,7 +168,7 @@ export class BaseClient {
    * an Observable stream containing all array elements:
    *   `responseToList$({ data: [1, 2 , 3]}) == '|----1----2----3----.'`
    */
-  public responseToList$(response: ApiResponse<any>): Observable<any> {
+  public responseToList$(response: ApiResponse<any>): Observable<Object[]> {
     const body = extractResponseBody(response);
     if (!Array.isArray(body)) {
       throw new Error(`Expecting response to be an array, received data of type [${typeof body}].`);
@@ -196,21 +198,22 @@ function extractResponseBody(response: ApiResponse<any>): any {
 }
 
 function mapProblemToError(response: ApiResponse<any>) {
-  const { problem, status } = response;
-  if (status != null) {
-    if (problem === CLIENT_ERROR) {
-      return new ClientRequestError(status);
-    }
-    if (problem === SERVER_ERROR) {
-      return new ClientServerError(status);
-    }
-  }
-  if (problem === CONNECTION_ERROR || problem === NETWORK_ERROR) {
-    return new ClientNetworkError();
-  }
-  if (problem === TIMEOUT_ERROR) {
-    return new ClientTimeoutError();
-  }
+  // const { problem, status } = response;
+  // if (status != null) {
+  //   if (problem === CLIENT_ERROR) {
+  //     return new ClientRequestError(status);
+  //   }
+  //   if (problem === SERVER_ERROR) {
+  //     return new ClientServerError(status);
+  //   }
+  // }
+  // if (problem === CONNECTION_ERROR || problem === NETWORK_ERROR) {
+  //   return new ClientNetworkError();
+  // }
+  // if (problem === TIMEOUT_ERROR) {
+  //   return new ClientTimeoutError();
+  // }
 
-  return new ClientError();
+  return new Error('ERROR');
 }
+/* tslint:enable:ban-types */

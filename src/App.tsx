@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { Provider } from 'react-redux';
 import styled from 'styled-components';
 import './App.css';
 
-import { Home } from './containers/Home/Home';
+import { store } from './frontend/common/Store/configureStore';
+import Home from './frontend/web/containers/Home/HomeContainer';
 
 const Header = styled.header`
   background-color: black;
@@ -14,10 +16,12 @@ const Header = styled.header`
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <Header>Title</Header>
-        <Home />
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <Header>Title</Header>
+          <Home />
+        </div>
+      </Provider>
     );
   }
 }

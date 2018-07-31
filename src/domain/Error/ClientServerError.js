@@ -1,15 +1,21 @@
-/**
- * Represents an `ApiSauce` `SERVER_ERROR` problem.
- */
-import { ClientError } from '@domain/Error/ClientError';
+// import { ClientError } from './ClientError';
 
-export class ClientServerError extends ClientError {
-  statusCode: number;
+// /**
+//  * Represents an `ApiSauce` `SERVER_ERROR` problem.
+//  */
 
-  constructor(statusCode: number) {
-    super(`The client request failed with status code '${statusCode}'`);
+// interface IProps {
+//   statusCode: number;
+// }
 
-    this.type = 'ClientServerError';
-    this.statusCode = statusCode;
-  }
-}
+// export class ClientServerError extends ClientError {
+//   statusCode: number;
+//   type: string;
+
+//   constructor(statusCode: number) {
+//     super(`The client request failed with status code '${statusCode}'`);
+
+//     this.type = 'ClientServerError';
+//     this.statusCode = statusCode;
+//   }
+// }
